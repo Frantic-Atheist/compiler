@@ -215,13 +215,14 @@ def open_file(vm_file):
 
 
 if os.path.isdir(to_translate):
+    os.chdir(to_translate)
     hack_filename = os.path.basename(to_translate) + '.asm'
     hack = open(hack_filename, "w")
     for file in os.listdir(to_translate):
         temp = os.path.splitext(file)
         if '.vm' == os.path.splitext(file)[1]:
             args.filename = os.path.splitext(os.path.basename(args.filename))[0]
-            open_file(file)
+            open_file(os.path.join(to_translate, file))
 elif os.path.isfile(to_translate):
     args.filename = os.path.splitext(os.path.basename(args.filename))[0]  # remove file type
     vm_filepath = os.path.splitext(to_translate)[0] + '.vm'
